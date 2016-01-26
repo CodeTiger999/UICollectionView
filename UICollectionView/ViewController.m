@@ -11,7 +11,7 @@
 
 @interface ViewController () <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, weak) UILabel *cellLable;
+
 
 @end
 
@@ -55,7 +55,7 @@
 
 // Item数量
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
+
     return 7;
 }
 
@@ -123,18 +123,6 @@
     return minI;
 }
 
-// 被选中时调用的方法
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *msg = [NSString stringWithFormat:@"It's %ld", (long)indexPath.row];
-    
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Hello" message:msg preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:nil];
-    [alertC addAction:cancel];
-    [self presentViewController:alertC animated:YES completion:nil];
-    
-    
-}
 
 // 是否可以被选择
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,6 +136,20 @@
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
+
+// 被选中时调用的方法
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *msg = [NSString stringWithFormat:@"It's %ld", (long)indexPath.row];
+    
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Hello" message:msg preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertC addAction:cancel];
+    [self presentViewController:alertC animated:YES completion:nil];
+    
+    
+}
+
 
 // Header 和 Footer
 - (UICollectionReusableView *) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -179,6 +181,28 @@
     }
     
     return reusableview;
+}
+
+
+// showMenu
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
+    return YES;
+}
+
+
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
+    
+    if ([NSStringFromSelector(action) isEqualToString:@"cut:"]) {
+        
+    } else if ([NSStringFromSelector(action) isEqualToString:@"copy"]) {
+
+    }
 }
 
 @end
